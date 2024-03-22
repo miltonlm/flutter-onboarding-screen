@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_screen/OnbordingData.dart';
 
 /// A IntroScreen Class.
-///
-///
 class IntroScreen extends StatefulWidget {
   final List<OnbordingData> onbordingDataList;
   final MaterialPageRoute pageRoute;
@@ -31,13 +29,14 @@ class IntroScreen extends StatefulWidget {
 
   @override
   IntroScreenState createState() {
-    return new IntroScreenState();
+    return IntroScreenState();
   }
 }
 
 class IntroScreenState extends State<IntroScreen> {
-  final PageController controller = new PageController();
+  final PageController controller = PageController();
   int currentPage = 0;
+  bool firstPage = false;
   bool lastPage = false;
 
   void _onPageChanged(int page) {
@@ -47,6 +46,12 @@ class IntroScreenState extends State<IntroScreen> {
         lastPage = true;
       } else {
         lastPage = false;
+      }
+
+      if (currentPage == 0) {
+        firstPage = true;
+      } else {
+        firstPage = false;
       }
     });
   }
@@ -66,36 +71,39 @@ class IntroScreenState extends State<IntroScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: new Color(0xFFEEEEEE),
+      color: Color(0xFFEEEEEE),
       padding: const EdgeInsets.all(10.0),
-      child: new Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          new Expanded(
+          Expanded(
             flex: 1,
-            child: new Container(),
+            child: Container(),
           ),
-          new Expanded(
+          Expanded(
             flex: 3,
-            child: new PageView(
+            child: PageView(
               children: widget.onbordingDataList,
               controller: controller,
               onPageChanged: _onPageChanged,
             ),
           ),
-          new Expanded(
+          Expanded(
             flex: 1,
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                new TextButton(
-                  child: new Text(lastPage ? "" : widget.prevLabel,
-                      style: new TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0)),
-                  onPressed: () => lastPage
+                TextButton(
+                  child: Text(
+                    firstPage ? "" : widget.prevLabel,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  onPressed: () => firstPage
                       ? null
                       : controller.previousPage(
                           duration: Duration(milliseconds: 300),
@@ -115,9 +123,8 @@ class IntroScreenState extends State<IntroScreen> {
                   ),
                 ),
                 TextButton(
-                  child: new Text(
-                      lastPage ? widget.finalLabel : widget.nextLabel,
-                      style: new TextStyle(
+                  child: Text(lastPage ? widget.finalLabel : widget.nextLabel,
+                      style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0)),
