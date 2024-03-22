@@ -9,7 +9,21 @@ import 'package:flutter_onboarding_screen/OnbordingData.dart';
 class IntroScreen extends StatefulWidget {
   final List<OnbordingData> onbordingDataList;
   final MaterialPageRoute pageRoute;
-  IntroScreen(this.onbordingDataList, this.pageRoute);
+  final String nextLabel;
+  final String finalLabel;
+  final String prevLabel;
+
+  IntroScreen(
+    this.onbordingDataList,
+    this.pageRoute, {
+    this.prevLabel = "PREV",
+    this.nextLabel = "NEXT",
+    this.finalLabel = "GOT IT",
+  });
+
+  void prevPage(BuildContext context) {
+    Navigator.pop(context, pageRoute);
+  }
 
   void skipPage(BuildContext context) {
     Navigator.push(context, pageRoute);
@@ -76,14 +90,14 @@ class IntroScreenState extends State<IntroScreen> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
                 new TextButton(
-                  child: new Text(lastPage ? "" : "SKIP",
+                  child: new Text(lastPage ? "" : widget.prevLabel,
                       style: new TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0)),
                   onPressed: () => lastPage
                       ? null
-                      : widget.skipPage(
+                      : widget.prevPage(
                           context,
                         ),
                 ),
@@ -100,7 +114,7 @@ class IntroScreenState extends State<IntroScreen> {
                   ),
                 ),
                 TextButton(
-                  child: new Text(lastPage ? "GOT IT" : "NEXT",
+                  child: new Text(lastPage ? widget.finalLabel : widget.nextLabel,
                       style: new TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
