@@ -97,8 +97,9 @@ class IntroScreenState extends State<IntroScreen> {
                           fontSize: 16.0)),
                   onPressed: () => lastPage
                       ? null
-                      : widget.prevPage(
-                          context,
+                      : controller.previousPage(
+                          duration: Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
                         ),
                 ),
                 Padding(
@@ -114,7 +115,8 @@ class IntroScreenState extends State<IntroScreen> {
                   ),
                 ),
                 TextButton(
-                  child: new Text(lastPage ? widget.finalLabel : widget.nextLabel,
+                  child: new Text(
+                      lastPage ? widget.finalLabel : widget.nextLabel,
                       style: new TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -123,7 +125,8 @@ class IntroScreenState extends State<IntroScreen> {
                       ? widget.skipPage(context)
                       : controller.nextPage(
                           duration: Duration(milliseconds: 300),
-                          curve: Curves.easeIn),
+                          curve: Curves.easeIn,
+                        ),
                 ),
               ],
             ),
