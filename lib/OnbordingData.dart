@@ -39,7 +39,6 @@ class _OnbordingDataState extends State<OnbordingData> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
       child: Column(
         children: [
           if (header != null) header,
