@@ -36,7 +36,7 @@ class IntroScreen extends StatefulWidget {
 class IntroScreenState extends State<IntroScreen> {
   final PageController controller = PageController();
   int currentPage = 0;
-  bool firstPage = false;
+  bool firstPage = true;
   bool lastPage = false;
 
   void _onPageChanged(int page) {
