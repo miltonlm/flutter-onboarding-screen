@@ -111,9 +111,8 @@ class IntroScreenState extends State<IntroScreen> {
                   child: Container(
                     child: Row(
                       children: [
-                        _buildPageIndicator(0),
-                        _buildPageIndicator(1),
-                        _buildPageIndicator(2),
+                        for (var i = 0; i < widget.onbordingDataList.length; i++)
+                          _buildPageIndicator(i),
                       ],
                     ),
                   ),
